@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: uvicorn server.app:UdomoAPI --host 0.0.0.0
+    ports:
+      - '80:8000'
+    environment:
+      - DATABASE_URL=postgresql://udomo:ajkfDHjskeu1_@195.154.69.244:30974/udomo
+    volumes:
+      - .:/app
+    depends_on:
+      - db
+
+  db:
+    image: postgres:14.3
+    expose:
+      - '5432'
+    environment:
+      - POSTGRES_USER=udomo
+      - POSTGRES_PASSWORD=ajkfDHjskeu1_
+      - POSTGRES_DB=udomo
